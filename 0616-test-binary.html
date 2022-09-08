@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>6월16일 과제-진수변환</title>
+		<style>
+			*{ margin:0px; padding:0px; }	
+		</style>
+	</head>
+
+	<body>
+		<script>
+		let input_value = [prompt("2진수 입력",0)];
+		let binary_value = input_value;
+		let decimal_value = 0;
+		let hexa_value = "";
+		let hexa_support_value = 0;
+		let hexa_support_array = [];
+		let hexa_support2_array = [];
+		let reverse_array = [];
+		let i = 0;
+		//입력 2진수값 역순서로 reverse_array에 배열 정렬
+		while(i < input_value[0].length) {
+			reverse_array.unshift(input_value[0][i]);
+			i++;
+		} i=0;
+		//입력값 2진수 확인 후 10진수 변환 작업 실행 & 아닐시 에러메세지 출력
+
+		while(i < reverse_array.length) {
+			if(reverse_array[i] < 2) {			//True 2의제곱으로 10진 변환 진행
+				decimal_value += (parseInt(reverse_array[i]) * Math.pow(2,[i]));
+			} else {					//False 에러 메시지 및 입력
+				document.write( "입력하신 숫자가 2진수가 아닙니다." + "<br>");
+				decimal_value = "Input binary wrong";		//10진수값 비정상 출력
+				hexa_value = "Input binary wrong";
+				break; 
+			}
+			i++;
+			hexa_support_value = decimal_value;		//16진수 변환 전 10진수 결과값 전달
+		} i=0;
+
+		if(hexa_value.length == 0) {			
+		//hexa_value가 초기값과 같을때 16진수 변환 진행하는 조건문
+			while(i < (Math.ceil(reverse_array.length / 4))) {	
+			//16진수 변환하는 반복문
+				hexa_support_array[i] = hexa_support_value % 16;
+				//16으로 나눈 나머지값 입력
+				hexa_support_value = Math.floor(hexa_support_value / 16);
+				//16으로 나눈 목값 재입력(정수값만)
+				(hexa_support_array[i] < 10) && (hexa_support2_array.unshift(hexa_support_array[i]));
+				(hexa_support_array[i] == 10) && (hexa_support2_array.unshift("A"));
+				(hexa_support_array[i] == 11) && (hexa_support2_array.unshift("B"));
+				(hexa_support_array[i] == 12) && (hexa_support2_array.unshift("C"));
+				(hexa_support_array[i] == 13) && (hexa_support2_array.unshift("D"));
+				(hexa_support_array[i] == 14) && (hexa_support2_array.unshift("E"));
+				(hexa_support_array[i] == 15) && (hexa_support2_array.unshift("F"));
+				i++;  
+			} i=0;
+
+			while(i < hexa_support2_array.length) {
+			//배열로 존재하는 값 한문자로 변경하는 반복문
+				hexa_value += hexa_support2_array[i];
+				i++;
+			}
+		}
+		//조건문 끝
+
+		document.write("Binary : " + binary_value);
+		document.write("<br>");
+		document.write("Decimal : " + decimal_value);
+		document.write("<br>");
+		document.write("Hexa : " + hexa_value);
+			
+		</script>
+	</body>
+
+</html>
+
